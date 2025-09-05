@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 
 from helper import Helpers
@@ -62,7 +64,8 @@ class TestBurger:
         assert burger.get_price() == Answer.EXPECTED_PRICE
 
     # проверка получения чека
-    def test_get_receipt_success(self, burger):
+    @patch('praktikum.burger.Burger.get_price', return_value=30)
+    def test_get_receipt_success(self, mock_get_price, burger):
         bun = Helpers.mock_black_bun()
         ingredient = Helpers.mock_filling()
         burger.set_buns(bun)
